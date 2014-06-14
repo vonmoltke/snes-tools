@@ -16,4 +16,20 @@
  * limitations under the License.
  */
 
+#include <stdio.h>
+#include <stdlib.h>
 
+int main(const int argc, const char* argv[])
+{
+  if (argc < 2)
+  {
+    printf("ERROR: not enough arguments");
+    printf("Expected %d; got %d", 2, argc);
+    return -1;
+  }
+
+  const char* rom_filename = argv[1];
+  const FILE* rom_file = fopen(rom_filename);
+
+  return 0;
+}
