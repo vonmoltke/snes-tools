@@ -108,4 +108,10 @@ struct Himem_Block_t
   unsigned char data[HIMEM_SIZE];
 };
 
+typedef enum ROM_TYPE
+{
+  LOMEM,
+  HIMEM
+} ROM_TYPE_t;
+
 #endif /* ROM_STRUCTS_H_ */
