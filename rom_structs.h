@@ -112,6 +112,13 @@ typedef enum ROM_TYPE
 {
   LOMEM,
   HIMEM
-} ROM_TYPE_t;
+} ROM_Type_t;
+
+typedef enum BLOCK_TYPE
+{
+  PROGRAM,
+  DATA,
+  EMPTY
+} Block_Type_t;
 
 #endif /* ROM_STRUCTS_H_ */
