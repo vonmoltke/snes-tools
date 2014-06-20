@@ -18,10 +18,31 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 #include "constants.h"
 #include "rom_structs.h"
 #include "util.h"
+
+Block_Type_t process_block(const char* block, const int block_number, const int block_size)
+{
+  for (int line_start = 0; line_start < block_size; line_start += 16)
+  {
+    printf("%08x:  ", (block_number * block_size) + line_start);
+
+    char ascii_string[17];
+    ascii_string[16] = '\0';
+    for (int byte = line_start; byte < (line_start + 16); ++byte)
+    {
+      printf("%02x ", block[byte]);
+      ascii_string[byte - line_start] = isprint(block[byte]) ? block[byte] : '.';
+    }
+
+    printf(" |%s|\n", ascii_string);
+  }
+
+  return EMPTY;
+}
 
 int main(const int argc, const char* argv[])
 {
@@ -51,7 +72,35 @@ int main(const int argc, const char* argv[])
     }
   }
 
-  const ROM_TYPE_t rom_type = id_ROM_type(raw_rom_data);
+  const int rom_block_size;
+  switch (id_ROM_type(raw_rom_data))
+  {
+  case LOMEM:
+    rom_block_size = LOMEM_SIZE;
+    break;
+  case HIMEM:
+    rom_block_size = HIMEM_SIZE;
+    break;
+  default:
+    printf("Invalid ROM type");
+    return -1;
+  }
+
+  const int num_blocks = bytes_read / rom_block_size;
+  // Verify the division had no truncated remainder
+  if ((rom_block_size * num_blocks) != bytes_read)
+  {
+    printf("Did not read an integer number of blocks from the ROM image");
+    return -1;
+  }
+
+  char *block = raw_rom_data;
+  for (int block_number = 0; block_number < num_blocks; ++block_number)
+  {
+    printf("\nBlock %d:\n\n");
+    Block_Type_t type = process_block(block, block_number, rom_block_size);
+    block += rom_block_size;
+  }
 
   return 0;
 }
