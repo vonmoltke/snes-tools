@@ -24,7 +24,7 @@
 
 #include "rom_structs.h"
 
-ROM_TYPE_t id_ROM_type(const char* rom_data)
+ROM_Type_t id_ROM_type(const char* rom_data)
 {
   // TODO implement me
   return LOMEM;

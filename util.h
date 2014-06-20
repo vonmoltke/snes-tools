@@ -23,6 +23,6 @@
 #ifndef UTIL_H_
 #define UTIL_H_
 
-ROM_TYPE_t id_ROM_type(const char* rom_data);
+ROM_Type_t id_ROM_type(const char* rom_data);
 
 #endif /* UTIL_H_ */
