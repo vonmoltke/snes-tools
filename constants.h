@@ -24,18 +24,18 @@
 #define CONSTANTS_H_
 
 // Convenient conversion constants
-const int KILOBYTE = 1024;
-const int MEGABYTE = 1024 * KILOBYTE;
+#define KILOBYTE  1024
+#define MEGABYTE  (1024 * KILOBYTE)
 
 // Size of the himem and lowmem blocks (in bytes)
-const int HIMEM_SIZE = 64 * KILOBYTE;
-const int LOMEM_SIZE = 32 * KILOBYTE;
+#define HIMEM_SIZE  (64 * KILOBYTE)
+#define LOMEM_SIZE  (32 * KILOBYTE)
 
 // Size of the SFC header (in bytes), if present.  This will act as an offset
 // for all other memory addresses when processing an SFC file.
-const int SFC_HEADER_SIZE = 512;
+#define SFC_HEADER_SIZE  512
 
 // Maximum size of a ROM image
-const int MAX_ROM_SIZE = 4 * MEGABYTE;
+#define MAX_ROM_SIZE  (4 * MEGABYTE)
 
 #endif /* CONSTANTS_H_ */

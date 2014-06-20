@@ -54,7 +54,7 @@ int main(const int argc, const char* argv[])
   }
 
   const char* rom_filename = argv[1];
-  const FILE* rom_file = fopen(rom_filename);
+  FILE* rom_file = fopen(rom_filename, "rb");
 
   // Read all data and verify successful read
   char *raw_rom_data = malloc(MAX_ROM_SIZE);
@@ -72,7 +72,7 @@ int main(const int argc, const char* argv[])
     }
   }
 
-  const int rom_block_size;
+  int rom_block_size;
   switch (id_ROM_type(raw_rom_data))
   {
   case LOMEM:
@@ -97,7 +97,7 @@ int main(const int argc, const char* argv[])
   char *block = raw_rom_data;
   for (int block_number = 0; block_number < num_blocks; ++block_number)
   {
-    printf("\nBlock %d:\n\n");
+    printf("\nBlock %d:\n\n", block_number);
     Block_Type_t type = process_block(block, block_number, rom_block_size);
     block += rom_block_size;
   }
